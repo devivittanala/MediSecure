@@ -267,7 +267,7 @@ http://localhost:8080
 
 # 👨‍💻 Developed By
 
-**Bhaskar**
+**Devi Prasanna**
 
 B.Tech Computer Science Engineering
 
