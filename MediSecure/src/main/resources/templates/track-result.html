@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Track Appointment</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body class="track-page">
+
+<div class="track-card">
+
+    <h2>
+        <i class="fas fa-calendar-check"></i>
+        Appointment Tracking
+    </h2>
+
+    <hr>
+
+    <div class="track-details">
+
+        <p><b>Patient Name :</b>
+            <span th:text="${appointment.patientName}"></span>
+        </p>
+
+        <p><b>Appointment ID :</b>
+            <span th:text="${appointment.appointmentId}"></span>
+        </p>
+
+        <p><b>Token Number :</b>
+            <span th:text="${appointment.tokenNumber}"></span>
+        </p>
+
+        <p><b>Doctor :</b>
+            <span th:text="${appointment.doctorName}"></span>
+        </p>
+
+        <p><b>Date :</b>
+            <span th:text="${appointment.appointmentDate}"></span>
+        </p>
+
+        <p><b>Time :</b>
+            <span th:text="${appointment.appointmentTime}"></span>
+        </p>
+
+        <p><b>Appointment Status :</b>
+            <span th:text="${appointment.appointmentStatus}"></span>
+        </p>
+
+        <p><b>Queue Status :</b>
+            <span th:text="${appointment.queueStatus}"></span>
+        </p>
+
+    </div>
+
+    <div class="track-buttons">
+
+        <a th:href="@{/downloadAppointmentSlip/{id}(id=${appointment.id})}"
+           class="btn btn-success">
+
+            <i class="fas fa-download"></i>
+            Download Slip
+
+        </a>
+
+        <a href="/"
+           class="btn btn-primary">
+
+            <i class="fas fa-home"></i>
+            Back to Home
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

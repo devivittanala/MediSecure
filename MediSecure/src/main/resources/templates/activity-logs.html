@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Activity Logs</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="patient-page">
+
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-history"></i>
+                Activity Logs
+            </h1>
+
+            <p>
+                Track all hospital activities and actions
+            </p>
+        </div>
+
+        <div class="header-actions">
+            <a href="/dashboard" class="btn btn-primary">
+                ← Dashboard
+            </a>
+        </div>
+
+    </div>
+
+    <div class="activity-container">
+
+        <div th:if="${#lists.isEmpty(logs)}"
+             class="activity-card">
+
+            <i class="fas fa-info-circle"></i>
+
+            <div>
+                <h3>No Activity Found</h3>
+                <p>No activity logs available.</p>
+            </div>
+
+        </div>
+
+        <div th:each="log : ${logs}"
+             class="activity-card">
+
+            <i class="fas fa-clock"></i>
+
+            <div>
+
+                <h3 th:text="${log.type}">
+                    Activity Type
+                </h3>
+
+                <p th:text="${log.message}">
+                    Activity Message
+                </p>
+
+                <small th:text="${#temporals.format(log.createdAt,'dd-MM-yyyy HH:mm')}">
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Waiting Queue</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="doctor-dashboard">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-users"></i>
+                Waiting Queue
+            </h1>
+
+            <p>
+                Patients waiting for consultation
+            </p>
+        </div>
+
+        <div>
+
+            <a href="/doctor/dashboard"
+               class="btn btn-primary">
+
+                Back Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Statistics -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <i class="fas fa-user-clock"></i>
+
+            <h3>Total Waiting</h3>
+
+            <h1 th:text="${waitingPatients.size()}"></h1>
+
+        </div>
+
+    </div>
+
+    <!-- Waiting Queue Table -->
+
+    <div class="table-card">
+
+        <h2>
+            Waiting Patients
+        </h2>
+
+        <table class="doctor-table">
+
+            <thead>
+
+            <tr>
+                <th>Token</th>
+                <th>Patient Name</th>
+                <th>Condition</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="p : ${waitingPatients}">
+
+                <td th:text="${p.tokenNumber}"></td>
+
+                <td th:text="${p.patientName}"></td>
+
+                <td th:text="${p.patientCondition}"></td>
+
+                <td th:text="${p.appointmentDate}"></td>
+
+                <td th:text="${p.appointmentTime}"></td>
+
+                <td>
+
+                    <span class="status-badge waiting"
+                          th:text="${p.appointmentStatus}">
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <a th:href="@{/doctor/consultation/{id}(id=${p.id})}"
+   class="btn btn-success">
+    Start Consultation
+</a>
+
+                  
+
+                </td>
+
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(waitingPatients)}">
+
+                <td colspan="7"
+                    style="text-align:center; padding:20px;">
+
+                    No Waiting Patients Found
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

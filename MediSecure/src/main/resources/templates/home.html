@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>MediSecure Hospital</title>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body class="home-page">
+
+<div class="home-card">
+
+    <div class="hospital-logo">
+        <i class="fas fa-hospital-alt"></i>
+    </div>
+
+    <h1 class="home-title">
+        MediSecure Hospital
+    </h1>
+
+    <p class="home-subtitle">
+        Smart Healthcare Management System
+    </p>
+
+    <p class="home-description">
+        Manage Patients, Doctors, Appointments,
+        Billing, Reports and Analytics through
+        a secure and professional hospital platform.
+    </p>
+    <h2 class="portal-heading">
+    Choose Your Portal
+</h2>
+
+<div class="portal-grid">
+
+   <a href="/admin/login"
+   class="portal-card admin-card">
+       
+
+        <i class="fas fa-user-shield portal-icon"></i>
+
+        <h2>Admin</h2>
+
+        <h4>Management</h4>
+
+        <p>
+            Manage Doctors, Receptionists,
+            Reports, Billing and Settings
+        </p>
+
+        <span class="portal-btn">
+            Admin Login
+        </span>
+
+    </a>
+
+ <a href="/doctor/login"
+   class="portal-card doctor-card">
+
+        <i class="fas fa-user-md portal-icon"></i>
+
+        <h2>Doctor</h2>
+
+        <h4>Patient Care</h4>
+
+        <p>
+            View Appointments,
+            Patient Records and Consultations
+        </p>
+
+        <span class="portal-btn">
+            Doctor Login
+        </span>
+
+    </a>
+
+   <a href="/reception/login"
+   class="portal-card reception-card">
+
+        <i class="fas fa-user-nurse portal-icon"></i>
+
+        <h2>Reception</h2>
+
+        <h4>Front Desk</h4>
+
+        <p>
+            Register Patients,
+            Appointments and Billing
+        </p>
+
+        <span class="portal-btn">
+            Reception Login
+        </span>
+
+    </a>
+
+
+</div>
+<!-- Quick Patient Services -->
+<div class="quick-services">
+
+    <h2>Patient Services</h2>
+
+    <div class="service-buttons">
+
+        <a href="/bookAppointment"
+           class="btn btn-success service-btn">
+            <i class="fas fa-calendar-plus"></i>
+            Book Appointment
+        </a>
+
+        <a href="/track-appointment"
+           class="btn btn-primary service-btn">
+            <i class="fas fa-search"></i>
+            Track Appointment
+        </a>
+
+    </div>
+
+</div>
+
+    
+
+       
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Appointment Profile</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="header">
+    <h1>MediSecure HMS</h1>
+</div>
+
+<div class="container">
+
+    <div class="profile-card">
+
+        <h2>Appointment Details</h2>
+
+        <p>
+            <strong>Appointment ID:</strong>
+            <span th:text="${appointment.appointmentId}"></span>
+        </p>
+
+        <p>
+            <strong>Patient Name:</strong>
+            <span th:text="${appointment.patientName}"></span>
+        </p>
+
+        <p>
+            <strong>Doctor Name:</strong>
+            <span th:text="${appointment.doctorName}"></span>
+        </p>
+
+        <p>
+            <strong>Appointment Date:</strong>
+            <span th:text="${appointment.appointmentDate}"></span>
+        </p>
+
+        <p>
+            <strong>Appointment Time:</strong>
+            <span th:text="${appointment.appointmentTime}"></span>
+        </p>
+
+        <p>
+            <strong>Patient Condition:</strong>
+            <span th:text="${appointment.patientCondition}"></span>
+        </p>
+
+        <p>
+            <strong>Appointment Status:</strong>
+            <span th:text="${appointment.appointmentStatus}"></span>
+        </p>
+        
+        <p>
+    <strong>Token Number:</strong>
+    <span th:text="${appointment.tokenNumber}">
+    </span>
+</p>
+<p>
+    <strong>Doctor Remarks:</strong>
+    <span th:text="${appointment.remarks}"></span>
+</p>
+
+
+       <h3>Appointment History</h3>
+
+<table class="history-table">
+
+    <tr>
+        <th>Appointment ID</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+
+    <tr th:each="h : ${history}">
+        <td th:text="${h.appointmentId}"></td>
+        <td th:text="${h.appointmentDate}"></td>
+        <td th:text="${h.appointmentStatus}"></td>
+    </tr>
+
+</table>
+
+<br>
+<div style="margin-top:25px; text-align:center;">
+
+    <a th:href="@{/appointment/pdf/{id}(id=${appointment.id})}"
+       class="btn btn-success">
+        📄 Download PDF Slip
+    </a>
+
+    <a th:href="${backUrl}"
+   class="btn btn-primary">
+   Back To Appointments
+</a>
+
+</div>
+        
+
+    </div>
+
+</div>
+
+</body>
+</html>

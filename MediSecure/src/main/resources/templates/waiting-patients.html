@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Waiting Queue</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Waiting Patients Queue</h2>
+
+    <a href="/doctor/dashboard" class="btn">
+        ← Back
+    </a>
+
+    <br><br>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>Token</th>
+            <th>Patient Name</th>
+            <th>Doctor</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="a : ${patients}">
+
+            <td th:text="${a.tokenNumber}"></td>
+
+            <td th:text="${a.patientName}"></td>
+
+            <td th:text="${a.doctorName}"></td>
+
+            <td th:text="${a.appointmentTime}"></td>
+
+            <td th:text="${a.queueStatus}"></td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

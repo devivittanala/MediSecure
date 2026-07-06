@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Notifications</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="patient-page">
+
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-bell"></i>
+                Notifications Center
+            </h1>
+            <p>Hospital alerts and important updates</p>
+        </div>
+
+        <div class="header-actions">
+            <a href="/dashboard" class="btn btn-primary">
+                ← Dashboard
+            </a>
+        </div>
+
+    </div>
+
+    <div class="notification-container">
+
+    <div th:if="${#lists.isEmpty(notifications)}"
+         class="notification-card">
+
+        <i class="fas fa-bell"></i>
+
+        <div>
+            <h3>No Notifications</h3>
+            <p>No recent notifications available.</p>
+        </div>
+
+    </div>
+
+    <div th:each="n : ${notifications}"
+         class="notification-card">
+
+        <i class="fas fa-bell"></i>
+
+        <div>
+
+            <h3 th:text="${n.type}">
+                Notification Type
+            </h3>
+
+            <p th:text="${n.message}">
+                Notification Message
+            </p>
+
+            <small th:text="${#temporals.format(n.createdAt,'dd-MM-yyyy HH:mm')}">
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

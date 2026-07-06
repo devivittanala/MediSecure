@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Manage Appointments</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <div class="page-header">
+
+        <h1>Manage Appointments</h1>
+
+        <a href="/reception/dashboard"
+           class="btn btn-primary">
+
+            Back Dashboard
+
+        </a>
+
+    </div>
+
+    <table class="table">
+
+        <thead>
+
+        <tr>
+            <th>ID</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="appointment : ${appointments}">
+
+            <td th:text="${appointment.id}"></td>
+
+            <td th:text="${appointment.patientName}"></td>
+
+            <td th:text="${appointment.doctorName}"></td>
+
+            <td th:text="${appointment.appointmentDate}"></td>
+
+            <td th:text="${appointment.appointmentStatus}"></td>
+			<td>
+        
+
+    <!-- View -->
+
+    <a th:href="@{/reception/appointment/{id}(id=${appointment.id})}"
+       class="btn btn-primary">
+
+        View
+
+    </a>
+
+    <!-- Check In -->
+
+    <a th:if="${appointment.queueStatus=='Not Checked In'}"
+       th:href="@{/checkInPatient/{id}(id=${appointment.id})}"
+       class="btn btn-success">
+
+        Check In
+
+    </a>
+
+    <!-- Checked In -->
+
+    <span th:if="${appointment.queueStatus=='Waiting'}"
+          class="badge badge-warning">
+
+        Checked In
+
+    </span>
+
+    
+
+    <span th:if="${appointment.queueStatus=='In Consultation'}"
+          class="badge badge-primary">
+
+        In Consultation
+
+    </span>
+
+    <!-- Completed -->
+
+    <span th:if="${appointment.queueStatus=='Completed'}"
+          class="badge badge-success">
+
+        Completed
+
+    </span>
+     <!-- Edit -->
+        <a th:href="@{/editAppointment/{id}(id=${appointment.id})}"
+           class="btn btn-primary">
+            Edit
+        </a>
+
+        <!-- Delete -->
+        <a th:if="${appointment.queueStatus != 'In Consultation'
+                and appointment.queueStatus != 'Completed'}"
+           th:href="@{/reception/deleteAppointment/{id}(id=${appointment.id})}"
+           class="btn btn-danger"
+           onclick="return confirm('Delete this appointment?');">
+            Delete
+        </a>
+
+</td>
+   
+			
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Bill Profile</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="bill-profile-page">
+
+    <!-- Header -->
+    <div class="page-header">
+    <div>
+        <h1>
+            <i class="fas fa-file-invoice-dollar"></i>
+            Bill Details
+        </h1>
+        <p>View invoice information and payment records</p>
+    </div>
+
+    <a th:href="${backUrl}" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i>
+        Billing Dashboard
+    </a>
+</div>
+
+    <!-- Bill Card -->
+    <div class="profile-card-modern">
+
+        <div class="profile-title">
+            <i class="fas fa-receipt"></i>
+            Invoice Details
+        </div>
+
+        <div class="profile-grid">
+
+            <div class="profile-item">
+                <label>Bill ID</label>
+                <span th:text="${bill.id}"></span>
+            </div>
+
+            <div class="profile-item">
+                <label>Bill Number</label>
+                <span th:text="${bill.billNumber}"></span>
+            </div>
+
+            <div class="profile-item">
+                <label>Patient Name</label>
+                <span th:text="${bill.patientName}"></span>
+            </div>
+
+            <div class="profile-item">
+                <label>Amount</label>
+                <span>
+                    ₹ <span th:text="${bill.amount}"></span>
+                </span>
+            </div>
+
+            <div class="profile-item">
+                <label>Payment Status</label>
+
+                <span class="status-badge"
+                      th:text="${bill.paymentStatus}">
+                </span>
+            </div>
+
+            <div class="profile-item">
+                <label>Bill Date</label>
+
+                <span th:text="${#temporals.format(bill.billDate,'dd-MM-yyyy')}">
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+

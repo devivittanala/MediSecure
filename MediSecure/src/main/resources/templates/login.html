@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MediSecure Login</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="login-page">
+
+    <div class="login-card">
+
+        
+
+        <h1>MediSecure Login</h1>
+
+        <p>Hospital Management System</p>
+
+        <form action="/login" method="post">
+
+    <input type="text"
+           name="username"
+           placeholder="Username">
+          
+
+    <input type="password"
+           name="password"
+           placeholder="Password"
+          >
+
+    <button type="submit">
+        Login
+    </button>
+
+	<br>
+
+<a href="/track-appointment" class="track-link">
+    Track Appointment
+</a>
+<a href="/book"
+   class="btn btn-success">
+   Book Appointment
+</a>
+</form>
+
+    </div>
+
+</body>
+</html>

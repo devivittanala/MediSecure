@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Appointment Management</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="appointment-page">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-calendar-check"></i>
+                Appointment Management
+            </h1>
+            
+            
+
+            <p>
+                Manage appointments, schedules and patient visits
+            </p>
+            
+        </div>
+
+        <div class="header-actions">
+        
+
+            <a href="/dashboard"
+           class="btn btn-primary">
+
+            Back Dashboard
+
+        </a>
+
+
+            
+
+        </div>
+
+    </div>
+
+    <!-- Search -->
+    <form action="/searchAppointments" class="search-form">
+
+        <input type="text"
+               name="keyword"
+               placeholder="🔍 Search patient, doctor or token">
+
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+
+        <a href="/appointments" class="btn btn-secondary">
+            Reset
+        </a>
+
+    </form>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <i class="fas fa-calendar-check"></i>
+            <h3>Total Appointments</h3>
+            <h1 th:text="${appointmentCount}">0</h1>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-user-clock"></i>
+            <h3>Pending</h3>
+            <h1 th:text="${pendingAppointments}">0</h1>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <h3>Confirmed</h3>
+            <h1 th:text="${confirmedAppointments}">0</h1>
+        </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+
+        <table class="appointment-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Appointment ID</th>
+                    <th>Token</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Condition</th>
+                    <th>Status</th>
+                    <th>Profile</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="a : ${appointments}">
+
+                <td th:text="${a.id}"></td>
+
+                <td th:text="${a.appointmentId}"></td>
+
+                <td>
+                    <span class="token-badge"
+                          th:text="${a.tokenNumber}">
+                    </span>
+                </td>
+
+                <td th:text="${a.patientName}"></td>
+
+                <td th:text="${a.doctorName}"></td>
+
+                <td th:text="${a.appointmentDate}"></td>
+
+                <td th:text="${a.appointmentTime}"></td>
+
+                <td th:text="${a.patientCondition}"></td>
+
+                <td>
+                    <span class="status-badge"
+                          th:text="${a.appointmentStatus}">
+                    </span>
+                </td>
+
+                <td>
+
+    <a th:href="@{/appointment/{id}(id=${a.id})}"
+       class="btn btn-primary">
+        View
+    </a>
+
+   
+</td>
+
+                <td th:text="${a.remarks}"></td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+```

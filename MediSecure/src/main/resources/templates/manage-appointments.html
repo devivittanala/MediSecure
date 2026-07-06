@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Appointments</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="page-header">
+    <h1>Manage Appointments</h1>
+
+   <a href="javascript:history.back()"
+   class="btn btn-primary">
+    ← Dashboard
+</a>
+</div>
+
+<table class="upcoming-table">
+
+    <tr>
+        <th>ID</th>
+        <th>Token</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="a : ${appointments}">
+
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.tokenNumber}"></td>
+        <td th:text="${a.patientName}"></td>
+        <td th:text="${a.doctorName}"></td>
+        <td th:text="${a.appointmentDate}"></td>
+        <td th:text="${a.appointmentTime}"></td>
+        <td th:text="${a.appointmentStatus}"></td>
+
+        <td>
+            <a th:href="@{/editAppointment/{id}(id=${a.id})}"
+               class="btn btn-primary">
+                Edit
+            </a>
+
+            <a th:href="@{/deleteAppointment/{id}(id=${a.id})}"
+               class="btn btn-danger">
+                Delete
+            </a>
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>

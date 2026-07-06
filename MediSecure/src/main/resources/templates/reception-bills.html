@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Reception Billing</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="billing-page">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-file-invoice-dollar"></i>
+                Billing Records
+            </h1>
+
+            <p>
+                View patient billing information
+            </p>
+        </div>
+
+        <div class="header-actions">
+
+            <a href="/reception/dashboard"
+               class="btn btn-primary">
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Search -->
+    <form th:action="@{/reception/searchBills}"
+          method="get"
+          class="search-form">
+
+        <input type="text"
+               name="keyword"
+               placeholder="🔍 Search Patient Name">
+
+        <button type="submit"
+                class="btn btn-primary">
+            Search
+        </button>
+
+        <a href="/reception/bills"
+           class="btn btn-secondary">
+            Reset
+        </a>
+
+    </form>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <i class="fas fa-file-invoice"></i>
+            <h3>Total Bills</h3>
+            <h1 th:text="${billCount}">0</h1>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <h3>Paid Bills</h3>
+            <h1 th:text="${paidBills}">0</h1>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-clock"></i>
+            <h3>Pending Bills</h3>
+            <h1 th:text="${pendingBills}">0</h1>
+        </div>
+
+    </div>
+
+    <!-- Bills Table -->
+    <div class="table-card">
+
+        <table class="billing-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Bill No</th>
+                    <th>Patient</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr th:each="b : ${bills}">
+
+                    <td th:text="${b.id}"></td>
+
+                    <td th:text="${b.billNumber}"></td>
+
+                    <td th:text="${b.patientName}"></td>
+
+                    <td>
+                        ₹ <span th:text="${b.amount}"></span>
+                    </td>
+
+                    <td th:text="${#temporals.format(b.billDate,'dd-MM-yyyy')}"></td>
+
+                    <td>
+                        <span th:text="${b.paymentStatus}"
+                              class="status-badge">
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <a th:href="@{/reception/bill/{id}(id=${b.id})}"
+                           class="btn btn-primary">
+
+                            View
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

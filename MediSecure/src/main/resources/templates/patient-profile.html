@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+
+<title>Patient Profile</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<style>
+
+.profile-container{
+    width:80%;
+    margin:40px auto;
+}
+
+.profile-card{
+    background: rgb(255,255,255);
+    color: black;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.profile-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+
+
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.info-box{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:10px;
+}
+
+
+
+.profile-header h2{
+    color:black;
+}
+
+.value{
+    margin-top:5px;
+    font-size:18px;
+    color:black;
+}
+
+.label{
+    font-weight:bold;
+    color:black;
+}
+
+.back-btn{
+    margin-top:30px;
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+.status-active{
+    color:green;
+    font-weight:bold;
+}
+
+.status-inactive{
+    color:red;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="profile-container">
+
+<div class="profile-card">
+
+<div class="profile-header">
+
+<h1>Patient Profile</h1>
+
+<h2 th:text="${patient.firstName + ' ' + patient.lastName}"></h2>
+
+</div>
+
+<div class="info-grid">
+
+<div class="info-box">
+<div class="label">Patient ID</div>
+<div class="value" th:text="${patient.patientId}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Age</div>
+<div class="value" th:text="${patient.age}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Gender</div>
+<div class="value" th:text="${patient.gender}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Blood Group</div>
+<div class="value" th:text="${patient.bloodGroup}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Disease</div>
+<div class="value" th:text="${patient.disease}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Doctor Assigned</div>
+<div class="value" th:text="${patient.doctorAssigned}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Phone</div>
+<div class="value" th:text="${patient.phone}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Email</div>
+<div class="value" th:text="${patient.email}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Address</div>
+<div class="value" th:text="${patient.address}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Emergency Contact</div>
+<div class="value" th:text="${patient.emergencyContact}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Admission Date</div>
+<div class="value" th:text="${patient.admissionDate}"></div>
+</div>
+
+<div class="info-box">
+<div class="label">Status</div>
+<div class="value" th:text="${patient.status}"></div>
+</div>
+
+</div>
+
+<a th:href="${backUrl}"
+   class="btn btn-primary">
+   Back To Patients
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>

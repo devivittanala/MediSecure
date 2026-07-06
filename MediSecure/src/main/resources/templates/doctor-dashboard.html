@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Doctor Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="doctor-dashboard">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+    <div>
+        <h1>
+            <i class="fas fa-user-md"></i>
+            Doctor Dashboard
+        </h1>
+
+        <p>
+            Manage consultations and patient appointments
+        </p>
+    </div>
+
+    <div>
+        <a href="/"
+           class="btn btn-danger">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+<div class="table-card">
+<div th:if="${doctor != null}">
+
+
+    <h2>
+        Welcome Dr.
+        <span th:text="${doctor.doctorName}"></span>
+    </h2>
+
+    <hr>
+
+    <p>
+        <b>Specialization:</b>
+        <span th:text="${doctor.specialization}"></span>
+    </p>
+
+    <p>
+        <b>Department:</b>
+        <span th:text="${doctor.department}"></span>
+    </p>
+
+    <p>
+        <b>Availability:</b>
+        <span th:text="${doctor.availabilityStatus}"></span>
+    </p>
+    </div>
+<div th:if="${doctor == null}">
+
+    <div class="doctor-empty">
+
+        <i class="fas fa-user-md"></i>
+
+        <h2>Doctor Profile Not Found</h2>
+
+        <p>
+            Please contact the administrator
+            to link your account.
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="stats-grid">
+
+    <!-- Statistics -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <i class="fas fa-calendar-check"></i>
+
+            <h3>Today's Appointments</h3>
+
+<h1 th:text="${todayAppointmentCount}"></h1>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-users"></i>
+
+            <h3>Waiting Patients</h3>
+
+            <h1 th:text="${waitingPatients != null ? waitingPatients.size() : 0}"></h1>></h1>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+
+            <h3>Completed Today</h3>
+
+            <h1 th:text="${completedPatients}"></h1>
+        </div>
+
+    </div>
+    <div class="table-card">
+
+    <h2>OPD Control</h2>
+
+    <div class="opd-buttons">
+
+        <span class="badge badge-success"
+              th:if="${opdRunning}">
+            🟢 OPD Running
+        </span>
+
+        <span class="badge badge-danger"
+              th:if="${!opdRunning}">
+            🔴 OPD Stopped
+        </span>
+
+        <a th:if="${!opdRunning}"
+           href="/doctor/start-opd"
+           class="btn btn-success">
+
+            Start OPD
+
+        </a>
+
+        <a th:if="${opdRunning}"
+           href="/doctor/stop-opd"
+           class="btn btn-danger">
+
+            Stop OPD
+
+        </a>
+
+    </div>
+</div>
+
+    <!-- Quick Actions -->
+
+   <div class="table-card">
+
+    <h2>Quick Actions</h2>
+
+   <div class="doctor-actions">
+
+    <a href="/doctor/profile"
+       class="btn btn-info">
+
+        My Profile
+
+    </a>
+
+    <a href="/doctor/todayAppointments"
+       class="btn btn-success">
+
+        Today's Appointments
+
+    </a>
+
+    <a href="/doctor/appointments"
+       class="btn btn-primary">
+
+        All Appointments
+
+    </a>
+
+</div>
+
+</div>
+    <!-- Current Consultation -->
+
+    <div class="table-card">
+
+        <h2>Current Consultation</h2>
+
+        <div th:if="${currentPatient!=null}">
+
+    <p>
+        <b>Patient :</b>
+        <span th:text="${currentPatient.patientName}"></span>
+    </p>
+
+    <p>
+        <b>Token :</b>
+        <span th:text="${currentPatient.tokenNumber}"></span>
+    </p>
+
+    <p>
+        <b>Status :</b>
+        <span th:text="${currentPatient.queueStatus}"></span>
+    </p>
+
+    <br>
+
+    <a th:href="@{/doctor/complete/{id}(id=${currentPatient.id})}"
+       class="btn btn-success">
+
+        Complete Consultation
+
+    </a>
+
+</div>
+
+<div th:if="${currentPatient==null}">
+
+    No Patient In Consultation
+
+</div>
+
+    </div>
+    <div class="table-card full-width">
+
+        <h2>Waiting Queue</h2>
+
+        <table class="doctor-table">
+
+       <thead>
+
+<tr>
+
+    <th>Token</th>
+
+    <th>Patient</th>
+
+    <th>Date</th>
+
+    <th>Time</th>
+
+    <th>Condition</th>
+
+    <th>Status</th>
+
+    <th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr th:each="a : ${waitingPatients}">
+
+    <td th:text="${a.tokenNumber}"></td>
+
+    <td th:text="${a.patientName}"></td>
+
+    <td th:text="${a.appointmentDate}"></td>
+
+    <td th:text="${a.appointmentTime}"></td>
+
+    <td th:text="${a.patientCondition}"></td>
+
+    <td>
+
+        <span class="badge badge-warning"
+              th:text="${a.queueStatus}">
+        </span>
+
+    </td>
+
+  <td>
+
+    <a th:if="${a.appointmentStatus == 'Checked In'}"
+       th:href="@{/doctor/accept/{id}(id=${a.id})}"
+       class="btn btn-primary">
+
+        Accept
+
+    </a>
+
+   <span th:if="${a.appointmentStatus=='Doctor Accepted'}"
+      class="badge badge-info">
+
+    Waiting for Reception
+
+</span>
+
+    <a th:if="${a.queueStatus == 'In Consultation'}"
+       th:href="@{/doctor/complete/{id}(id=${a.id})}"
+       class="btn btn-danger">
+
+        Complete
+
+    </a>
+
+</td>
+
+</tr>
+
+</tbody>
+
+        </table>
+
+    </div>
+
+    <!-- My Appointments -->
+    
+
+    
+    <!-- Waiting Queue -->
+
+   
+
+</div>
+
+</body>
+</html>

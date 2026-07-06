@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Today's Appointments</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="page-header">
+
+    <h1>Today's Appointments</h1>
+
+    <a href="/doctor/dashboard"
+       class="btn btn-primary">
+
+        Back Dashboard
+
+    </a>
+
+</div>
+
+<div class="table-card">
+
+<table class="doctor-table">
+
+    <thead>
+
+    <tr>
+
+        <th>Token</th>
+
+        <th>Patient</th>
+
+        <th>Time</th>
+
+        <th>Condition</th>
+
+        <th>Status</th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr th:each="a : ${appointments}">
+
+        <td th:text="${a.tokenNumber}"></td>
+
+        <td th:text="${a.patientName}"></td>
+
+        <td th:text="${a.appointmentTime}"></td>
+
+        <td th:text="${a.patientCondition}"></td>
+
+        <td th:text="${a.queueStatus}"></td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</div>
+
+</body>
+</html>

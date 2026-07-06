@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Patient Management</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="patient-page">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-user-injured"></i>
+                Patient Management
+            </h1>
+
+            <p>
+                Manage patient records and medical information
+            </p>
+        </div>
+
+        <div class="header-actions">
+
+            <a href="/dashboard" class="btn btn-primary">
+                ← Dashboard
+            </a>
+
+            
+
+        </div>
+
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-bar">
+
+        <a href="/patients/pdf" class="btn btn-danger">
+            Export PDF
+        </a>
+
+        <a href="/patients/excel" class="btn btn-success">
+            Export Excel
+        </a>
+
+    </div>
+
+    <!-- Search -->
+    <form action="/searchPatients" class="search-form">
+
+        <input type="text"
+               name="keyword"
+               placeholder="🔍 Search by name, disease or phone">
+
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+
+        <a href="/patients" class="btn btn-secondary">
+            Reset
+        </a>
+
+    </form>
+
+    <!-- Statistics -->
+   <div class="patient-stats">
+
+        <div class="stat-card">
+         <i class="fas fa-users"></i>
+            <h3>Total Patients</h3>
+            <h1 th:text="${totalPatients}">0</h1>
+        </div>
+
+        <div class="stat-card">
+        <i class="fas fa-heartbeat"></i>
+            <h3>Active Cases</h3>
+            <h1 th:text="${activeCases}">0</h1>
+        </div>
+
+        <div class="stat-card">
+        <i class="fas fa-check-circle"></i>
+        
+           <h3>Recovered</h3>
+            <h1 th:text="${recoveredCases}">0</h1>
+        </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+
+        <table class="patient-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Disease</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Profile</th>
+                 
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr th:each="p : ${patients}">
+
+                    <td th:text="${p.id}"></td>
+
+                    <td th:text="${p.firstName + ' ' + p.lastName}"></td>
+
+                    <td th:text="${p.age}"></td>
+
+                    <td th:text="${p.disease}"></td>
+
+                    <td th:text="${p.phone}"></td>
+
+                    <td>
+                        <span th:text="${p.status}"
+                              class="status-badge">
+                        </span>
+                    </td>
+
+                    <td>
+                        <a th:href="@{/patient/{id}(id=${p.id})}"
+                           class="btn btn-primary">
+                            View
+                        </a>
+                    </td>
+
+                   
+
+                   
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+```

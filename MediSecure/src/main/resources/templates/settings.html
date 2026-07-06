@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Settings</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="patient-page">
+
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-cog"></i>
+                System Settings
+            </h1>
+            <p>Manage hospital information and system preferences</p>
+        </div>
+
+        <div class="header-actions">
+            <a href="/dashboard" class="btn btn-primary">
+                ← Dashboard
+            </a>
+        </div>
+
+    </div>
+
+    <div class="settings-card">
+
+        <form>
+
+            <div class="form-group">
+                <label>Hospital Name</label>
+                <input type="text"
+                       value="MediSecure Hospital"
+                       class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Hospital Email</label>
+                <input type="email"
+                       value="admin@medisecure.com"
+                       class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input type="text"
+                       value="+91 9876543210"
+                       class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Hospital Address</label>
+                <textarea class="form-control"
+                          rows="3">Hyderabad, Telangana</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Admin Username</label>
+                <input type="text"
+                       value="admin"
+                       class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Change Password</label>
+                <input type="password"
+                       placeholder="Enter New Password"
+                       class="form-control">
+            </div>
+
+            <button type="submit"
+                    class="btn btn-success">
+                Save Settings
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

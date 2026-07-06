@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Reception Profile</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="patient-page">
+
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-user-edit"></i>
+                Edit Profile
+            </h1>
+            <p>Update receptionist information</p>
+        </div>
+
+        <a href="/reception/profile"
+           class="btn btn-primary">
+            ← Back Profile
+        </a>
+
+    </div>
+
+    <div class="profile-card-modern">
+
+        <form action="/reception/updateProfile"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div class="profile-grid">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text"
+                           name="name"
+                           th:value="${name}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Employee ID</label>
+                   <input type="text"
+       th:value="${employeeId}"
+       class="form-control"
+       readonly>
+       <small class="text-muted">
+    <i class="fas fa-lock"></i>
+    This information can only be modified by the Administrator.
+</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email"
+                           name="email"
+                           th:value="${email}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text"
+                           name="phone"
+                           th:value="${phone}"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <input type="text"
+       th:value="${department}"
+       class="form-control"
+       readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Shift Timing</label>
+                    <input type="text"
+       th:value="${shiftTiming}"
+       class="form-control"
+       readonly>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Address</label>
+                    <textarea name="address"
+                              rows="4"
+                              class="form-control"
+                              th:text="${address}">
+                    </textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Profile Photo</label>
+                    <input type="file"
+                           name="photo"
+                           class="form-control"
+                           accept="image/*">
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button type="submit"
+                        class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Receptionist Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="patient-page">
+
+   <div class="page-header">
+
+    <h1>Receptionist Management</h1>
+
+    <div>
+
+        <a href="/admin/addReceptionist"
+           class="btn btn-success">
+            + Add Receptionist
+        </a>
+
+        <a href="/dashboard"
+           class="btn btn-primary">
+            Dashboard
+        </a>
+        
+
+    </div>
+
+</div>
+
+    <div class="table-card">
+
+        <table class="patient-table">
+
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Employee ID</th>
+                <th>Department</th>
+                <th>Shift</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="r : ${receptionists}">
+
+                <td th:text="${r.id}"></td>
+                <td th:text="${r.name}"></td>
+                <td th:text="${r.employeeId}"></td>
+                <td th:text="${r.department}"></td>
+                <td th:text="${r.shiftTiming}"></td>
+                <td th:text="${r.phone}"></td>
+<td>
+    <a th:href="@{/admin/editReceptionist/{id}(id=${r.id})}"
+       class="btn btn-success">
+        Edit
+    </a>
+</td>
+<td>
+    <a th:href="@{/admin/deleteReceptionist/{id}(id=${r.id})}"
+       class="btn btn-danger"
+       onclick="return confirm('Delete Receptionist?')">
+        Delete
+    </a>
+</td>
+    
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

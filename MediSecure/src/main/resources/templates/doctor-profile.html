@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Doctor Profile</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="doctor-profile-page">
+
+    <!-- Top Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>
+                <i class="fas fa-user-md"></i>
+                Doctor Profile
+            </h1>
+
+            <p>
+                View complete doctor information
+            </p>
+        </div>
+
+       <a href="javascript:history.back()"
+   class="btn btn-primary">
+   ← Dashboard
+</a>
+
+    </div>
+
+    <!-- Profile Card -->
+    <div class="doctor-profile-card">
+
+        <div class="doctor-avatar">
+            <i class="fas fa-user-md"></i>
+        </div>
+
+        <h2 th:text="${doctor.doctorName}">
+            Doctor Name
+        </h2>
+
+        <span class="specialization-badge"
+              th:text="${doctor.specialization}">
+        </span>
+
+        <div class="profile-grid">
+
+            <div class="profile-item">
+                <label>ID</label>
+                <p th:text="${doctor.id}"></p>
+            </div>
+
+            <div class="profile-item">
+                <label>Qualification</label>
+                <p th:text="${doctor.qualification}"></p>
+            </div>
+
+            <div class="profile-item">
+                <label>Experience</label>
+                <p th:text="${doctor.experience} + ' Years'"></p>
+            </div>
+
+            <div class="profile-item">
+                <label>Phone</label>
+                <p th:text="${doctor.phone}"></p>
+            </div>
+
+            <div class="profile-item">
+                <label>Email</label>
+                <p th:text="${doctor.email}"></p>
+            </div>
+
+            <div class="profile-item">
+                <label>Status</label>
+
+                <span class="available-badge"
+                      th:text="${doctor.availabilityStatus}">
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+```

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Reception Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+</head>
+
+<body>
+<div th:if="${success}" class="alert alert-success">
+    <span th:text="${success}"></span>
+</div>
+
+<div th:if="${error}" class="alert alert-danger">
+    <span th:text="${error}"></span>
+</div>
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <h2>MediSecure</h2>
+
+        <a href="#">Dashboard</a>
+      <a href="/reception/addPatient">Add Patient</a>
+<a href="/reception/patients">Manage Patients</a>
+<a href="/addAppointment">Add Appointment</a>
+<a href="/reception/appointments">Manage Appointments</a>
+<a href="/reception/bills">Billing</a>
+<a href="/reception/reports">
+    Reports
+</a>
+<a href="/reception/profile">
+    My Profile
+</a>
+
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+
+            <h1>Reception Dashboard</h1>
+
+            <a href="/"
+               class="btn btn-danger">
+                Logout
+            </a>
+
+        </div>
+    
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Total Appointments</h3>
+        <h1 th:text="${appointmentCount}"></h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>Pending</h3>
+        <h1 th:text="${pendingCount}"></h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>Completed</h3>
+        <h1 th:text="${completedCount}"></h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>Critical Patients</h3>
+        <h1 th:text="${criticalCount}"></h1>
+    </div>
+
+    <div class="stat-card">
+        <h3>Today's Appointments</h3>
+        <h1 th:text="${todayCount}"></h1>
+    </div>
+    
+    <div class="stat-card">
+
+    <h3>Waiting Queue</h3>
+
+    <h1 th:text="${waitingCount}"></h1>
+
+</div>
+
+<div class="stat-card">
+
+    <h3>In Consultation</h3>
+
+    <h1 th:text="${consultationCount}"></h1>
+
+</div>
+
+<div class="stat-card">
+
+    <h3>Completed Today</h3>
+
+    <h1 th:text="${completedTodayCount}"></h1>
+
+</div>
+
+
+
+    
+
+
+</div>
+
+    
+<div class="table-card">
+
+<h2>
+    🔵 Now Serving
+</h2>
+
+<div th:if="${currentToken!=null}">
+
+    <h1 style="font-size:40px;color:#2563eb">
+
+        <span th:text="${currentToken.tokenNumber}"></span>
+
+    </h1>
+
+    <h2 th:text="${currentToken.patientName}"></h2>
+
+    <h3>
+
+        Dr.
+        <span th:text="${currentToken.doctorName}"></span>
+
+    </h3>
+
+    <h3 style="color:#16a34a">
+
+        In Consultation
+
+    </h3>
+
+</div>
+
+<div th:if="${currentToken==null}">
+
+    <h2>No Consultation Running</h2>
+
+</div>
+</div>
+<div class="table-card">
+
+    <h2>🟡 Next Patients</h2>
+
+    <table class="upcoming-table">
+
+       <tr>
+    <th>Priority</th>
+    <th>Token</th>
+    <th>Patient</th>
+    <th>Doctor</th>
+    <th>Time</th>
+    <th>Condition</th>
+    <th>Action</th>
+</tr>
+
+       <tr th:each="a, stat : ${nextPatients}"
+    th:classappend="${a.patientCondition=='Critical'} ? 'critical-row' : ''">
+
+    <td>
+        <span th:if="${a.patientCondition=='Critical'}"
+              class="badge badge-danger">HIGH</span>
+
+        <span th:if="${a.patientCondition=='Serious'}"
+              class="badge badge-warning">MEDIUM</span>
+
+        <span th:if="${a.patientCondition=='Normal'}"
+              class="badge badge-success">LOW</span>
+    </td>
+
+    <td th:text="${a.tokenNumber}"></td>
+
+    <td th:text="${a.patientName}"></td>
+
+    <td th:text="${a.doctorName}"></td>
+
+    <td th:text="${a.appointmentTime}"></td>
+
+    <td th:text="${a.patientCondition}"></td>
+
+    <td>
+
+        <a th:if="${stat.index == 0 and currentToken == null and opdRunning}"
+           th:href="@{/sendToDoctor/{id}(id=${a.id})}"
+           class="btn btn-success">
+
+            Send To Doctor
+
+        </a>
+
+        <span th:if="${!(stat.index == 0 and currentToken == null and opdRunning)}"
+              class="badge badge-secondary">
+
+            Waiting
+
+        </span>
+
+    </td>
+
+</tr>
+    </table>
+
+</div>
+<div class="table-card">
+
+    <h2>Completed Consultations</h2>
+
+    <table class="upcoming-table">
+
+        <tr>
+            <th>Token</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Status</th>
+           
+        </tr>
+
+        <tr th:each="a : ${completedAppointments}">
+
+            <td th:text="${a.tokenNumber}"></td>
+
+            <td th:text="${a.patientName}"></td>
+
+            <td th:text="${a.doctorName}"></td>
+
+            <td>
+                <span class="badge badge-success">
+                    Completed
+                </span>
+            </td>
+
+            
+
+        </tr>
+
+    </table>
+
+</div>
+    
+
+ 
+</div>
+</div>
+
+</div>
+</main>
+
+</div>
+
+
+</body>
+</html>  

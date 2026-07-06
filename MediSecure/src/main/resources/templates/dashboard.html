@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>MediSecure Dashboard</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+<!-- Sidebar -->
+<div class="sidebar">
+    
+    <div class="logo-section">
+        <h2>🏥 MediSecure</h2>
+        <p>Hospital Management</p>
+    </div>
+   
+    
+
+    <ul class="menu">
+        <li><a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+
+        <li><a href="/patients"><i class="fas fa-user-injured"></i> Patients</a></li>
+
+        <li><a href="/doctors"><i class="fas fa-user-md"></i> Doctors</a></li>
+<li>
+    <a href="/admin/receptionists">
+        <i class="fas fa-user-tie"></i>
+        Receptionists
+    </a>
+</li>
+        <li><a href="/appointments"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+
+        <li><a href="/bills"><i class="fas fa-file-invoice-dollar"></i> Billing</a></li>
+
+        <li><a href="/reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
+
+        <li><a href="/analytics"><i class="fas fa-chart-line"></i> Analytics</a></li>
+
+        <li><a href="/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+
+        <li><a href="/settings"><i class="fas fa-cog"></i> Settings</a></li>
+        
+<li>
+    <a href="/activity-logs">
+        <i class="fas fa-history"></i>
+        Activity Logs
+    </a>
+</li>
+        
+    </ul>
+
+</div>
+
+    <div class="main-content">
+
+<div class="topbar">
+
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search Patients, Doctors...">
+    </div>
+
+   <div class="topbar-right">
+    <a href="/"
+           class="btn btn-danger">
+            Log Out
+        </a>
+
+    <i class="fas fa-bell notification-icon"></i>
+
+    <div class="admin-profile">
+        <i class="fas fa-user-circle"></i>
+        <span>Administrator</span>
+    </div>
+
+</div>
+
+</div>
+<div class="welcome-section">
+
+    <div>
+        <h2>Welcome Back, Admin 👋</h2>
+        <p>Monitor patients, doctors, appointments and revenue.</p>
+    </div>
+
+    <div class="date-box">
+        <span id="currentDate"></span>
+    </div>
+
+</div>
+
+       <div class="stats-grid">
+
+    <div class="stat-card patients">
+        <h3>Total Patients</h3>
+        <h1 th:text="${patientCount}"></h1>
+    </div>
+
+    <div class="stat-card doctors">
+        <h3>Total Doctors</h3>
+        <h1 th:text="${doctorCount}"></h1>
+    </div>
+
+    <div class="stat-card appointments">
+        <h3>Total Appointments</h3>
+        <h1 th:text="${appointmentCount}"></h1>
+    </div>
+
+    <div class="stat-card bills">
+        <h3>Total Bills</h3>
+        <h1 th:text="${billCount}"></h1>
+    </div>
+
+    <div class="stat-card revenue">
+        <h3>Total Revenue</h3>
+        <h1>₹ <span th:text="${totalRevenue}"></span></h1>
+    </div>
+
+    <div class="stat-card paid">
+        <h3>Paid Bills</h3>
+        <h1 th:text="${paidBills}"></h1>
+    </div>
+
+    <div class="stat-card pending">
+        <h3>Pending Bills</h3>
+        <h1 th:text="${pendingBills}"></h1>
+    </div>
+
+</div> 
+<div class="charts-section">
+
+    <div class="chart-box">
+        <canvas id="pieChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="revenueChart"></canvas>
+    </div>
+
+</div>
+<!-- Recent Activities -->
+
+<div class="activity-section">
+
+    <div class="activity-header">
+        <h2>
+            <i class="fas fa-history"></i>
+            Recent Activities
+        </h2>
+    </div>
+
+    <div class="activity-list">
+
+        <div th:each="activity : ${recentActivities}"
+             class="activity-card">
+
+            <div class="activity-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+
+            <div class="activity-content">
+
+                <h4 th:text="${activity.type}">
+                    Activity Type
+                </h4>
+
+                <p th:text="${activity.message}">
+                    Activity Message
+                </p>
+
+                <small
+                    th:text="${#temporals.format(activity.createdAt,'dd-MM-yyyy HH:mm')}">
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="recent-section">
+<div class="recent-box">
+
+    <h2>Recent Patients</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+
+        <tr th:each="p : ${patients}">
+
+            <td th:text="${p.id}"></td>
+
+            <td th:text="${p.firstName + ' ' + p.lastName}"></td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+<div class="recent-box">
+
+    <h2>Recent Doctors</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+
+        <tr th:each="d : ${doctors}">
+
+            <td th:text="${d.id}"></td>
+
+            <td th:text="${d.doctorName}"></td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+    
+</div>
+
+</div>
+
+</div>
+
+<script th:inline="javascript">
+const patientCount =
+[[${patientCount}]];
+
+const doctorCount =
+[[${doctorCount}]];
+
+const appointmentCount =
+[[${appointmentCount}]];
+
+const billCount =
+[[${billCount}]];
+
+new Chart(document.getElementById('pieChart'), {
+
+	type:'doughnut',
+
+	data:{
+	labels:[
+	'Patients',
+	'Doctors',
+	'Appointments',
+	'Bills'
+	],
+
+	datasets:[{
+	data:[
+	patientCount,
+	doctorCount,
+	appointmentCount,
+	billCount
+	],
+
+	backgroundColor:[
+	'#4f46e5',
+	'#10b981',
+	'#f59e0b',
+	'#ef4444'
+	]
+	}]
+	},
+
+	options:{
+	responsive:true,
+	plugins:{
+	legend:{
+	position:'bottom'
+	}
+	}
+	}
+
+	});
+new Chart(document.getElementById('barChart'), {
+
+	type:'bar',
+
+	data:{
+
+	labels:[
+	'Patients',
+	'Doctors',
+	'Appointments',
+	'Bills'
+	],
+
+	datasets:[{
+
+	label:'Hospital Overview',
+
+	data:[
+	patientCount,
+	doctorCount,
+	appointmentCount,
+	billCount
+	],
+
+	backgroundColor:[
+	'#4f46e5',
+	'#10b981',
+	'#f59e0b',
+	'#ef4444'
+	]
+
+	}]
+	},
+
+	options:{
+
+	responsive:true,
+
+	plugins:{
+	legend:{
+	display:false
+	}
+	},
+
+	scales:{
+	y:{
+	beginAtZero:true
+	}
+	}
+
+	}
+
+	});
+
+new Chart(document.getElementById('revenueChart'), {
+
+	type:'line',
+
+	data:{
+
+	labels:[
+	'Patients',
+	'Doctors',
+	'Appointments',
+	'Bills'
+	],
+
+	datasets:[{
+
+	label:'Hospital Growth',
+
+	data:[
+	patientCount,
+	doctorCount,
+	appointmentCount,
+	billCount
+	],
+
+	borderColor:'#10b981',
+
+	backgroundColor:'rgba(16,185,129,0.2)',
+
+	fill:true,
+
+	tension:0.4
+
+	}]
+	},
+
+	options:{
+	responsive:true
+	}
+
+	});
+
+window.onload = function() {
+
+    document.getElementById("currentDate").innerHTML =
+    new Date().toDateString();
+
+};
+
+
+</script>
+
+
+</body>
+</html>

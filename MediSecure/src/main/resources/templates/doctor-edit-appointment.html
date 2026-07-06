@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Edit Appointment</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h2>Edit Appointment</h2>
+
+   <form th:action="@{/updateAppointmentDoctor}"
+      th:object="${appointment}"
+      method="post">
+    <input type="hidden" th:field="*{id}">
+<input type="hidden" th:field="*{appointmentDate}">
+<input type="hidden" th:field="*{appointmentTime}">
+<input type="hidden" th:field="*{appointmentId}">
+<input type="hidden" th:field="*{tokenNumber}">
+        <div class="form-group">
+            <label>Appointment ID</label>
+            <input type="text"
+                   th:field="*{appointmentId}"
+                   class="form-control"
+                   readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Patient Name</label>
+            <input type="text"
+                   th:field="*{patientName}"
+                   class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Doctor Name</label>
+            <input type="text"
+                   th:field="*{doctorName}"
+                   class="form-control">
+        </div>
+
+        <div class="form-group">
+    <label>Appointment Date</label>
+    <input type="date"
+           th:field="*{appointmentDate}"
+           class="form-control"
+           readonly>
+</div>
+
+<div class="form-group">
+    <label>Appointment Time</label>
+    <input type="time"
+           th:field="*{appointmentTime}"
+           class="form-control"
+           readonly>
+</div>
+
+        <div class="form-group">
+    <label>Patient Condition</label>
+
+    <select th:field="*{patientCondition}"
+            class="form-control">
+
+        <option value="Normal">Normal</option>
+        <option value="Serious">Serious</option>
+        <option value="Critical">Critical</option>
+
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Appointment Status</label>
+
+    <select th:field="*{appointmentStatus}"
+            class="form-control">
+
+        <option value="Pending">Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Completed">Completed</option>
+        <option value="Cancelled">Cancelled</option>
+
+    </select>
+</div>
+<div class="form-group">
+
+    <label>Doctor Remarks</label>
+
+    <textarea th:field="*{remarks}"
+              class="form-control"
+              rows="4"
+              placeholder="Enter doctor remarks here...">
+    </textarea>
+
+</div>>
+        <button type="submit"
+                class="btn btn-primary">
+            Update Appointment
+        </button>
+        <form th:action="@{/confirmAppointment}" method="post">
+
+    <input type="hidden"
+           name="id"
+           th:value="${appointment.id}">
+
+    <button type="submit"
+            class="btn btn-success">
+        Confirm Appointment
+    </button>
+
+</form>
+        
+
+       <a href="/doctor/dashboard"
+   class="btn btn-danger">
+    Cancel
+</a>
+
+    </form>
+
+</div>
+
+</body>
+</html>
